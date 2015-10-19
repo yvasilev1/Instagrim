@@ -4,13 +4,19 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : Sep 27, 2014, 1:34:36 PM
-    Author     : Administrator
+    Created on : 28-Sep-2015, 11:13:25
+    Author     : Yulian
 */
 
-
+body{
+    background-color: grey;
+}
 nav {
     text-align: left;
     border: 2px;
     float: right;
+}
+table{
+    border: 1px solid black;
+    height: 30px;
 }

@@ -15,21 +15,22 @@
     </head>
     <body>
         <header>
-        <h1>InstaGrim ! </h1>
-        <h2>Your world in Black and White</h2>
+            <h1>InstaGrim ! </h1>
+            <h2>Your world in Black and White</h2>
         </header>
         <nav>
             <ul>
-                
-                <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
+
+                <li><a href="/Instagrim/Images/majed">Sample Images</a><li>
+
             </ul>
         </nav>
-       
+
         <article>
             <h3>Login</h3>
             <form method="POST"  action="Login">
                 <ul>
-                    <li>User Name <input type="text" name="username"></li>
+                    <li>Username <input type="text" name="logUsername"></li>
                     <li>Password <input type="password" name="password"></li>
                 </ul>
                 <br/>
