@@ -14,16 +14,27 @@
         <link rel="stylesheet" type="text/css" href="Styles.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
-    <body>
+
+    <body>		
+
         <header>
-            <h1>Instagrim </h1>
-            <h2>Your world in Black and White</h2>
+            <div class="innertube">
+                <h1>Instagrim </h1>
+                <h2>Your world in Black and White</h2>
+            </div>
         </header>
-        <nav>
 
+        <div id="wrapper">
 
+            <main>
+                <div id="content">
+                    <div class="innertube">
+                        <h1>Main page</h1>
+                    </div>
+                </div>
+            </main>
 
-            <li><a href="upload.jsp">Upload</a></li>
+            <nav>
                 <%
 
                     LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
@@ -31,26 +42,34 @@
                         String UserName = lg.getUsername();
                         if (lg.getlogedin()) {
                 %>
+                <div class="innertube">
+                    <h3></h3>
+                    <ul>
+                        <li><a href="/Instagrim/UserProfile"><%=UserName%>'s Profile</a></li>
+                        <li><a href="/Instagrim/Images/<%=UserName%>"><%=UserName%>'s Images</a></li>
+                        <li><a href="upload.jsp">Upload</a></li>
+                        <li><a href="LogoutServlet">Logout</a><li>   
+                    </ul>
+                    <%}
+                    } else {
+                    %>
+                    <h3></h3>
+                    <ul>
+                        <li><a href="register.jsp">Register</a></li>
+                        <li><a href="login.jsp">Login</a></li>
+                            <%
+                                }%>
+                    </ul>
+                </div>
+            </nav>
 
-            <li><a href="/Instagrim/Images/<%=lg.getUsername()%>"><%=lg.getUsername()%>'s Images</a></li>
-            <li><a href="/Instagrim/UserProfile"><%=lg.getUsername()%>'s Profile</a></li>
-            <li><a href="LogoutServlet">Logout</a><li>   
-                <%}
-                } else {
-                %>
-            <li><a href="register.jsp">Register</a></li>
-            <li><a href="login.jsp">Login</a></li>
+        </div>
 
-
-            <%
-                    }%>
-
-        </nav>
         <footer>
-            <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-                <li>&COPY; Andy C</li>
-            </ul>
+            <div class="innertube">
+                <p> &COPY; Yulian V</p>
+            </div>
         </footer>
+
     </body>
 </html>

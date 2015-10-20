@@ -8,50 +8,70 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Instagrim</title>
         <link rel="stylesheet" type="text/css" href="Styles.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
-    <body>
+
+    <body>		
+
         <header>
-            <h1>InstaGrim ! </h1>
-            <h2>Your world in Black and White</h2>
+            <div class="innertube">
+                <h1>Instagrim </h1>
+                <h2>Your world in Black and White</h2>
+            </div>
         </header>
-        <nav>
-            <ul>
 
-                <li><a href="/Instagrim/Images/majed">Sample Image</a></li>
-            </ul>
-        </nav>
+        <div id="wrapper">
 
-        <article>
-            <h3>Register as user</h3>
+            <main>
+                <div id="content">
+                    <div class="innertube">
+                        <article>
+                            <h3>Register as user</h3>
 
-            <p>${errorMessage}</p>
-            <p>${errorMessage1}</p>
+                            <p>${errorMessage}</p>
+                            <p>${errorMessage1}</p>
 
-            <form method="POST"  action="Register">
-                <ul>
-                    <li>User Name <input type="text" name="RegUserName"></li>
-                    <li>Password <input type="password" name="password"></li>
-                    <li>Re-enter password <input type="password" name="password1"></li>
-                    <p></p>
-                    <li>First Name <input type="text" name="first_name"></li>
-                    <li>Last name <input type="text" name="last_name"></li>
-                    <li>E-mail <input type="text" name="email"></li>
+                            <form method="POST"  action="Register">
+                                <ul>
+                                    <li>User Name <input type="text" name="RegUserName"></li>
+                                    <li>Password <input type="password" name="password"></li>
+                                    <li>Re-enter password <input type="password" name="password1"></li>
+                                    <p></p>
+                                    <li>First Name <input type="text" name="first_name"></li>
+                                    <li>Last name <input type="text" name="last_name"></li>
+                                    <li>E-mail <input type="text" name="email"></li>
 
-                </ul>
-                <br/>
-                <input type="submit" value="Register"> 
+                                </ul>
+                                <br/>
+                                <input type="submit" value="Register"> 
 
-            </form>
+                            </form>
 
-        </article>
+                        </article>
+
+                    </div>
+                </div>
+            </main>
+
+            <nav>
+
+                <div class="innertube">
+                    <h3></h3>
+                    <ul>
+                        <li><a href="/Instagrim">Home</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
 
         <footer>
-            <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-            </ul>
+            <div class="innertube">
+                <p> &COPY; Yulian V</p>
+            </div>
         </footer>
+
     </body>
 </html>

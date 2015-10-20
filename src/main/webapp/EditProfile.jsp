@@ -11,11 +11,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Instagrim</title>
         <link rel="stylesheet" type="text/css" href="Styles.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
-    <body>
+
+    <body>		
         <%
 
             LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
@@ -30,44 +31,57 @@
                 if (lg.getlogedin()) {
         %>
         <header>
-            <h1>InstaGrim ! </h1>
-            <h2>Your world in Black and White</h2>
+            <div class="innertube">
+                <h1>Instagrim </h1>
+                <h2>Your world in Black and White</h2>
+            </div>
         </header>
-        <nav>
-            <ul>
 
-                <li><a href="/Instagrim/UserProfile">Go back to your profile</a></li>
-            </ul>
-        </nav>
-        <p>${errorMessage1}</p>
-        <article>
+        <div id="wrapper">
 
-            <form method="POST"  action="EditProfile">
-                <ul>
+            <main>
+                <div id="content">
+                    <div class="innertube">
+                        <p>${errorMessage1}</p>
+                        <article>
 
-                    <li>Username <input  type="text" name="newUserName" value="<%=UserName%>" ></li>
-                    <li>First Name <input type="text" name="newFirstName" value="<%=firstName%>"></li>
-                    <li>Last Name <input type="text" name="newLastName" value="<%=lastName%>"></li>
-                    <li>Email <input type="text" name="newEmail" value="<%=email%>"></li>
+                            <form method="POST"  action="EditProfile">
+                                <ul>
+                                    <li>Username <input  type="text" name="newUserName" value="<%=UserName%>" ></li>
+                                    <li>First Name <input type="text" name="newFirstName" value="<%=firstName%>"></li>
+                                    <li>Last Name <input type="text" name="newLastName" value="<%=lastName%>"></li>
+                                    <li>Email <input type="text" name="newEmail" value="<%=email%>"></li>
+                                </ul>
+                                <br/>
+                                <input type="submit" value="Edit"> 
 
+                            </form>
+                        </article>
+                    </div>
+                </div>
+            </main>
 
-                </ul>
-                <br/>
-                <input type="submit" value="Edit"> 
+            <nav>
 
-            </form>
+                <div class="innertube">
+                    <h3></h3>
+                    <ul>
+                        <li><a href="/Instagrim/UserProfile">Go back to your profile</a></li> 
+                    </ul>
 
-            <%}
-                } else {
-                }%>
+                </div>
+            </nav>
 
-
-        </article>
+        </div>
+        <%}
+            } else {
+            }%>
 
         <footer>
-            <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-            </ul>
+            <div class="innertube">
+                <p> &COPY; Yulian V</p>
+            </div>
         </footer>
+
     </body>
 </html>

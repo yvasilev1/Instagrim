@@ -13,7 +13,8 @@
         <link rel="stylesheet" type="text/css" href="Styles.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
-    <body>
+
+    <body>		
         <%
 
             LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
@@ -27,53 +28,70 @@
                 if (lg.getlogedin()) {
         %>
 
-
-
-
         <header>
-            <h1>Instagrim </h1>
-            <h2>Your world in Black and White</h2>
-          
+            <div class="innertube">
+                <h1>Instagrim </h1>
+                <h2>Your world in Black and White</h2>
+            </div>
         </header>
 
+        <div id="wrapper">
 
+            <main>
+                <div id="content">
+                    <div class="innertube">
+                        <table align ="center" class="Table">
+                            <caption><h2><%=lg.getUsername()%>'s Profile</h2></caption>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Row 1, Cell 1</td>
+                                    <td> <p>Username: <%=UserName%></p>
+                                        <p>First Name: <%=firstName%></p>
+                                        <p>Last Name: <%=lastName%></p>
+                                        <p>Email: <%=email%></p></td></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="/Instagrim/ProfilePicUpload.jsp">Upload Profile Picture</a></td>
+                                    <td><a href="/Instagrim/EditProfile">Edit Profile</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-      
-        <table align="center" background-color="white" border="1" td ="60%"width="60%">
-            <caption><h2><%=lg.getUsername()%>'s Profile</h2></caption>
-            <tr>
-                <td height="100px">row 1, column 1</td>
-                <td height="100px"> 
-                    <p>Username: <%=UserName%></p>
-                    <p>First Name: <%=firstName%></p>
-                    <p>Last Name: <%=lastName%></p>
-                    <p>Email: <%=email%></p></td>
-            </tr>
-            <tr>
-                <td><a href="/Instagrim/ProfilePicUpload.jsp">Upload Profile Picture</a></td><td><a href="/Instagrim/EditProfile">Edit Profile</a></td>
-            </tr>
-        </table>
-    
+                    </div>
+                </div>
+            </main>
 
-        <nav>
+            <nav>
 
-            <li><a href="/Instagrim/Images/<%=lg.getUsername()%>"><%=lg.getUsername()%>'s Images</a></li>
-            
+                <div class="innertube">
+                    <h3></h3>
+                    <ul>
+                        <li><a href="/Instagrim/Images/<%=UserName%>"><%=UserName%>'s Images</a></li>
+                        <li><a href="upload.jsp">Upload</a></li>
+                        <li><a href="LogoutServlet">Logout</a><li>
+                        <li><a href="/Instagrim">Home</a></li>
+                    </ul>
 
-            <%}
-                } else {
-                }
-            %>
+                </div>
+                <%}
+                    } else {
+                    }
+                %>
+            </nav>
 
-
-        </nav>
+        </div>
 
         <footer>
-            <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-
-            </ul>
+            <div class="innertube">
+                <p> &COPY; Yulian V</p>
+            </div>
         </footer>
+
     </body>
 </html>
-

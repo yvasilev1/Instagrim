@@ -5,37 +5,62 @@
 --%>
 
 <!DOCTYPE html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
+<!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Instagrim</title>
         <link rel="stylesheet" type="text/css" href="Styles.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
-    <body>
-        <h1>InstaGrim ! </h1>
-        <h2>Your world in Black and White</h2>
-        <nav>
 
-            <li><a href="/Instagrim/UserProfile">Go back to your profile</a></li>
+    <body>		
 
+        <header>
+            <div class="innertube">
+                <h1>Instagrim </h1>
+                <h2>Your world in Black and White</h2>
+            </div>
+        </header>
 
+        <div id="wrapper">
 
-        </nav>
+            <main>
+                <div id="content">
+                    <div class="innertube">
+                        <article>
+                            <h3>Profile Picture Upload</h3>
+                            <form method="POST" enctype="multipart/form-data" action="Image">
+                                File to upload: <input type="file" name="upfile"><br/>
 
-        <article>
-            <h3>Profile Picture Upload</h3>
-            <form method="POST" enctype="multipart/form-data" action="Image">
-                File to upload: <input type="file" name="upfile"><br/>
+                                <br/>
+                                <input type="submit" value="Press"> to upload the file!
+                            </form>
 
-                <br/>
-                <input type="submit" value="Press"> to upload the file!
-            </form>
+                        </article>
+                    </div>
+                </div>
+            </main>
 
-        </article>
+            <nav>
+
+                <div class="innertube">
+                    <h3></h3>
+                    <ul>
+                        <li><a href="/Instagrim/UserProfile">Go back to your profile</a></li>    
+                    </ul>
+
+                </div>
+            </nav>
+
+        </div>
+
         <footer>
-            <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-            </ul>
+            <div class="innertube">
+                <p> &COPY; Yulian V</p>
+            </div>
         </footer>
+
     </body>
 </html>

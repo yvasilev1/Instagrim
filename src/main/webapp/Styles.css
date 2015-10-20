@@ -4,19 +4,97 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 28-Sep-2015, 11:13:25
+    Created on : 20-Oct-2015, 18:15:46
     Author     : Yulian
 */
 
-body{
-    background-color: grey;
+body {
+    margin:0;
+    padding:0;
+    font-family: Sans-Serif;
+    line-height: 1.5em;
 }
+
+header {
+    background: #ccc;
+    height: 100px;
+}
+
+header h1 {
+    margin: 0;
+    padding-top: 15px;
+}
+
+main {
+    padding-bottom: 10500px;
+    margin-bottom: -10000px;
+    float: left;
+    width: 100%;
+}
+
 nav {
-    text-align: left;
-    border: 2px;
-    float: right;
+    padding-bottom: 10500px;
+    margin-bottom: -10000px;
+    float: left;
+    width: 230px;
+    margin-left: -230px;
+    background: #ccc;
 }
-table{
-    border: 1px solid black;
-    height: 30px;
+
+footer {
+    clear: left;
+    width: 100%;
+    background: #ccc;
+    text-align: center;
+    padding: 4px 0;
+}
+
+#wrapper {
+    overflow: hidden;
+}
+
+#content {
+    margin-right: 230px; /* Same as 'nav' width */
+}
+
+.innertube {
+    margin: 15px; /* Padding for content */
+    margin-top: 0;
+}
+
+p {
+    color: #555;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    color: black;
+    text-decoration: none;
+}
+
+
+
+table.Table {
+    width:50%;
+    background-color:white;
+    border-collapse:collapse;border-width:1px;
+    border-color:#000000;
+    border-style:solid;
+    color:#000000;
+}
+
+table.Table td, table.Table th {
+    border-width:3px;
+    border-color:#000000;
+    border-style:solid;
+    padding:3px;
+}
+
+table.Table thead {
+    background-color:#A0A0A0;
 }

@@ -20,20 +20,52 @@
 
             if (lg.getlogedin()) {
     %>
-    <body>
-        <header>
-            <h1>Instagrim </h1>
-            <h2>Your world in Black and White</h2>
-        </header>
-        <p>You have updated you information successfully. </p>
-        <p> The changes will apply next time you log in. </p>
-        <p> If you wish to do that please press logout. </p>
-    <li><a href="LogoutServlet">Logout</a></li>
-    <li><a href="/Instagrim/UserProfile">Go back to your profile</a></li>
-        <%}
-            } else {
 
-            }
-        %>
-</body>
+    <body>		
+
+        <header>
+            <div class="innertube">
+                <h1>Instagrim </h1>
+                <h2>Your world in Black and White</h2>
+            </div>
+        </header>
+
+        <div id="wrapper">
+
+            <main>
+                <div id="content">
+                    <div class="innertube">
+                        <p>You have updated you information successfully. </p>
+                        <p> The changes will apply next time you log in. </p>
+                        <p> If you wish to do that please press logout. </p>
+
+                    </div>
+                </div>
+            </main>
+            <nav>
+
+                <div class="innertube">
+                    <h3></h3>
+                    <ul>
+                        <li><a href="LogoutServlet">Logout</a></li>
+                        <li><a href="/Instagrim/UserProfile">Go back to your profile</a></li>
+                            <%}
+                                } else {
+
+                                }
+                            %>
+                    </ul>
+
+                </div>
+            </nav>
+        </div>
+        <footer>
+            <div class="innertube">
+                <p> &COPY; Yulian V</p>
+            </div>
+        </footer>
+
+    </body>
 </html>
+
+s
