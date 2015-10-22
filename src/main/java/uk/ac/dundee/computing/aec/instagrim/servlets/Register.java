@@ -63,6 +63,7 @@ public class Register extends HttpServlet {
         String first_name = request.getParameter("first_name");
         String last_name = request.getParameter("last_name");
         String email = request.getParameter("email");
+        String location = request.getParameter("location");
 
         Convertors convertor = new Convertors();
         java.util.UUID userId = convertor.getTimeUUID();
@@ -70,12 +71,19 @@ public class Register extends HttpServlet {
         
         User us = new User();
         boolean emailCheck = us.isValidEmail(email);
+        us.setCluster(cluster);
+       
         
-
-        if (password1.equals(password) & emailCheck == true) {
+        if (us.isValidLogin(RegUserName)){
+            String errorMessage2 = "User exist , please try again";
+            request.setAttribute("errorMessage2", errorMessage2);
+            request.getRequestDispatcher("/register.jsp").forward(request, response);
+            response.sendRedirect("/Instagrim/register.jsp");
+            
+        }else if (password1.equals(password) & emailCheck == true ) {
 
             us.setCluster(cluster);
-            us.RegisterUser(userId, RegUserName, password, first_name, last_name, email);
+            us.RegisterUser(userId, RegUserName, password, first_name, last_name, email,location);
             response.sendRedirect("/Instagrim/success.jsp");
 
         } else if (!password1.equals(password) & emailCheck == true) {
@@ -100,6 +108,7 @@ public class Register extends HttpServlet {
         }
 
     }
+    
 
     /**
      * Returns a short description of the servlet.

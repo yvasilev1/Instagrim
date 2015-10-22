@@ -78,10 +78,11 @@ public class EditProfile extends HttpServlet {
         String newFirstName = request.getParameter("newFirstName");
         String newLastName = request.getParameter("newLastName");
         String newEmail = request.getParameter("newEmail");
+        String newLocation = request.getParameter("newLocation");
         User us = new User();
         us.setCluster(cluster);
 
-        boolean updateInfo = us.updateProfile(currUserName, newFirstName, newLastName, newEmail);
+        boolean updateInfo = us.updateProfile(currUserName, newFirstName, newLastName, newEmail,newLocation);
         boolean isNewEmailValid = us.isValidEmail(newEmail);
         if (updateInfo == true & isNewEmailValid == true) {
 

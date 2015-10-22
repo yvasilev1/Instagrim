@@ -41,7 +41,7 @@ public class User {
 
     }
 
-    public boolean RegisterUser(UUID userId, String RegUserName, String Password, String first_name, String last_name, String email) {
+    public boolean RegisterUser(UUID userId, String regUserName, String Password, String first_name, String last_name, String email,String location) {
         AeSimpleSHA1 sha1handler = new AeSimpleSHA1();
         String EncodedPassword = null;
         try {
@@ -52,27 +52,49 @@ public class User {
         }
 
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("insert into userprofiles (userid,login,password,first_name, last_name,email) "
-                + "Values(?,?,?,?,?,?)");
+        PreparedStatement ps = session.prepare("insert into userprofiles (userid,login,password,first_name, last_name,email,location) "
+                + "Values(?,?,?,?,?,?,?)");
 
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        userId, RegUserName, EncodedPassword, first_name, last_name, email));
+                        userId, regUserName, EncodedPassword, first_name, last_name, email,location));
         //We are assuming this always works.  Also a transaction would be good here !
 
         System.out.println("You have been registered");
         return true;
+    }
+    public boolean isValidLogin(String username){
+        System.out.println(username);
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("select first_name from userprofiles where login =?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+           username ));
+        if (rs.isExhausted()) {
+            System.out.println("No Images returned");
+            return false;
+        } else {
+           for (Row row : rs) {
+                String StoredFirstName = row.getString("first_name");
+               
+                    return true;
+           }
+        }
+        
+        return false;
     }
 
     public boolean isValidEmail(String email) {
         Pattern p0 = Pattern.compile(".+@.+\\.[a-z]+");
         Matcher m0 = p0.matcher(email);
 
-        boolean isValid = m0.matches();
-        if (isValid) {
+        
+        if (m0.matches()== true) {
             return true;
-        }
+        }else
 
         return false;
     }
@@ -114,7 +136,7 @@ public class User {
         return false;
     }
 
-    public boolean updateProfile(String currUserName, String newFirstName, String newLastName, String newEmail) {
+    public boolean updateProfile(String currUserName, String newFirstName, String newLastName, String newEmail,String newLocation) {
 
         UUID StoredID;
         Session session = cluster.connect("instagrim");
@@ -131,21 +153,27 @@ public class User {
 
             if (user_name.equals(currUserName)) {
 
+                Statement statement1;
+                statement1 = QueryBuilder.update("instagrim", "userprofiles")
+                        .with(set("first_name", newFirstName))
+                        .where(eq("userid", StoredID));
+
                 Statement statement2;
                 statement2 = QueryBuilder.update("instagrim", "userprofiles")
-                        .with(set("first_name", newFirstName))
+                        .with(set("last_name", newLastName))
                         .where(eq("userid", StoredID));
 
                 Statement statement3;
                 statement3 = QueryBuilder.update("instagrim", "userprofiles")
-                        .with(set("last_name", newLastName))
-                        .where(eq("userid", StoredID));
-
-                Statement statement4;
-                statement4 = QueryBuilder.update("instagrim", "userprofiles")
                         .with(set("email", newEmail))
                         .where(eq("userid", StoredID));
+                
+                Statement statement4;
+                statement4 = QueryBuilder.update("instagrim", "userprofiles")
+                        .with(set("location", newLocation))
+                        .where(eq("userid", StoredID));
 
+                session.execute(statement1);
                 session.execute(statement2);
                 session.execute(statement3);
                 session.execute(statement4);
@@ -174,6 +202,7 @@ public class User {
                 profile.setFirstName(row.getString("first_name"));
                 profile.setLastName(row.getString("last_name"));
                 profile.setEmail(row.getString("email"));
+                profile.setLocation(row.getString("location"));
 
             }
         }

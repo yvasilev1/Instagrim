@@ -18,6 +18,7 @@ public class Profile {
     String FirstName = null;
     String LastName = null;
     String Email = null;
+    String Location = null;
 
 
     public void setFirstName(String firstName) {
@@ -43,4 +44,10 @@ public class Profile {
         return Email;
 
     }
+     public void setLocation(String location){
+         this.Location = location;
+     }
+     public String getLocation(){
+         return Location;
+     }
 }

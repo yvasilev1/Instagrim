@@ -32,6 +32,7 @@
 
                             <p>${errorMessage}</p>
                             <p>${errorMessage1}</p>
+                            <p>${errorMessage2}</p>
 
                             <form method="POST"  action="Register">
                                 <ul>
@@ -42,6 +43,7 @@
                                     <li>First Name <input type="text" name="first_name"></li>
                                     <li>Last name <input type="text" name="last_name"></li>
                                     <li>E-mail <input type="text" name="email"></li>
+                                    <li>Location <input type="text" name="location"></li>
 
                                 </ul>
                                 <br/>

@@ -108,7 +108,7 @@ public class Image extends HttpServlet {
     LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
     user=lg.getUsername();
     pm.updateProfilePic(uuidstring, user);
-     response.sendRedirect("/Instagrim");
+     response.sendRedirect("/Instagrim/Images/"+user);
 
    
     }

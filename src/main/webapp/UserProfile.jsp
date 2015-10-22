@@ -33,6 +33,7 @@
                 String firstName = pf.getFirstName();
                 String lastName = pf.getLastName();
                 String email = pf.getEmail();
+                String location = pf.getLocation();
 
                 if (lg.getlogedin()) {
         %>
@@ -63,7 +64,9 @@
                                     <td> <p>Username: <%=UserName%></p>
                                         <p>First Name: <%=firstName%></p>
                                         <p>Last Name: <%=lastName%></p>
-                                        <p>Email: <%=email%></p></td></td>
+                                        <p>Email: <%=email%></p>
+                                        <p>Location: <%=location%></p>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><a href="/Instagrim/Images/<%=UserName%>">Select New Profile Picture</a></td>

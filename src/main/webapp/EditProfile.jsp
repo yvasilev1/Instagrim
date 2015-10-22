@@ -27,6 +27,7 @@
                 String firstName = pf.getFirstName();
                 String lastName = pf.getLastName();
                 String email = pf.getEmail();
+                String location = pf.getLocation();
 
                 if (lg.getlogedin()) {
         %>
@@ -51,6 +52,7 @@
                                     <li>First Name <input type="text" name="newFirstName" value="<%=firstName%>"></li>
                                     <li>Last Name <input type="text" name="newLastName" value="<%=lastName%>"></li>
                                     <li>Email <input type="text" name="newEmail" value="<%=email%>"></li>
+                                     <li>Location <input type="text" name="newLocation" value="<%=location%>"></li>
                                 </ul>
                                 <br/>
                                 <input type="submit" value="Edit"> 
