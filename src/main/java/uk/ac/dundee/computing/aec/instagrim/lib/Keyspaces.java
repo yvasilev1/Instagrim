@@ -48,8 +48,11 @@ public final class Keyspaces {
                     + "      last_name text,\n"
                     + "      email text,\n"
                     + "      profilePic text,\n"
-                    + "      userId uuid PRIMARY KEY,\n"
+                    + "      userId uuid,\n"
+                    + "      PRIMARY KEY(userId),\n"
                     + "  );";
+            String CreateSecondaryIndex = "CREATE INDEX user_index ON instagrim.userprofiles (login);";  
+            
             Session session = c.connect();
             try {
                 PreparedStatement statement = session
@@ -93,6 +96,13 @@ public final class Keyspaces {
                 session.execute(cqlQuery);
             } catch (Exception et) {
                 System.out.println("Can't create Address Profile " + et);
+            }
+            try{
+                SimpleStatement cqlQuery = new SimpleStatement(CreateSecondaryIndex);
+                session.execute(cqlQuery);
+            
+            }catch(Exception et){
+                 System.out.println("Can't create Address Profile " + et);
             }
             session.close();
 

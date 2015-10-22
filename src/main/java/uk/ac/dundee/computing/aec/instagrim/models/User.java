@@ -64,17 +64,16 @@ public class User {
         System.out.println("You have been registered");
         return true;
     }
-    public boolean isValidEmail(String email){
-         Pattern p0 = Pattern.compile(".+@.+\\.[a-z]+");
-         Matcher m0 = p0.matcher(email);
-        
-         boolean isValid = m0.matches();
-         if (isValid)
-         {
-             return true;
-         }
-         
-        
+
+    public boolean isValidEmail(String email) {
+        Pattern p0 = Pattern.compile(".+@.+\\.[a-z]+");
+        Matcher m0 = p0.matcher(email);
+
+        boolean isValid = m0.matches();
+        if (isValid) {
+            return true;
+        }
+
         return false;
     }
 
@@ -115,10 +114,8 @@ public class User {
         return false;
     }
 
-    public boolean updateProfile(String currUserName, String newUserName, String newFirstName, String newLastName,String newEmail) {
-        
+    public boolean updateProfile(String currUserName, String newFirstName, String newLastName, String newEmail) {
 
-        
         UUID StoredID;
         Session session = cluster.connect("instagrim");
         Statement statement;
@@ -131,13 +128,8 @@ public class User {
 
             String user_name = row.getString("login");
             StoredID = row.getUUID("userid");
-            
-            if (user_name.equals(currUserName)) {
 
-                Statement statement1;
-                statement1 = QueryBuilder.update("instagrim", "userprofiles")
-                        .with(set("login", newUserName))
-                        .where(eq("userid", StoredID));
+            if (user_name.equals(currUserName)) {
 
                 Statement statement2;
                 statement2 = QueryBuilder.update("instagrim", "userprofiles")
@@ -149,13 +141,11 @@ public class User {
                         .with(set("last_name", newLastName))
                         .where(eq("userid", StoredID));
 
-                 Statement statement4;
+                Statement statement4;
                 statement4 = QueryBuilder.update("instagrim", "userprofiles")
                         .with(set("email", newEmail))
                         .where(eq("userid", StoredID));
-                
-                
-                session.execute(statement1);
+
                 session.execute(statement2);
                 session.execute(statement3);
                 session.execute(statement4);
@@ -166,56 +156,53 @@ public class User {
         return true;
     }
 
-    public boolean getProfileInfo(Profile profile, User user) {
+    public boolean getProfileInfo(Profile profile, User user, String logUsername) {
 
         Session session = cluster.connect("instagrim");
-        Statement statement;
-        statement = QueryBuilder.select()
-                .all()
-                .from("instagrim", "userprofiles");
-        ResultSet rs = session.execute(statement);
+        PreparedStatement ps = session.prepare("select * from userprofiles where login=?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        logUsername ));
+        if (rs.isExhausted()) {
+            System.out.println("No Images returned");
+        } else {
+            for (Row row : rs) {
+                // String firstName;
 
-        for (Row row : rs) {
-            // String firstName;
+                profile.setFirstName(row.getString("first_name"));
+                profile.setLastName(row.getString("last_name"));
+                profile.setEmail(row.getString("email"));
 
-            profile.setFirstName(row.getString("first_name"));
-            profile.setLastName(row.getString("last_name"));
-            profile.setEmail(row.getString("email"));
-
+            }
         }
         return true;
     }
-    
-    public String getProfilePic(String picid){
-        
-         
-	   String storedPicID = " ";
+
+    public String getProfilePic(String picid) {
+
+        String storedPicID = " ";
         Session session = cluster.connect("instagrim");
-        Statement statement;
-        statement = QueryBuilder.select()
-                .all()
-                .from("instagrim", "userprofiles");
-        ResultSet rs = session.execute(statement);
+        PreparedStatement ps = session.prepare("select profilePic from userprofiles where login =?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        picid));
+        if (rs.isExhausted()) {
+            System.out.println("No Images returned");
+            return "no first name stored";
+        } else {
+            for (Row row : rs) {
 
-        for (Row row : rs) {
+                storedPicID = row.getString("profilepic");
 
-            //String user_name = row.getString("login");
-          
-            
-           // if (user_name.equals(user)) {
-
-             storedPicID = row.getString("profilePic");
-                       
-        
-         //  }
-        
+            }
         }
-       
+
         return storedPicID;
     }
-    
-    
-    
 
     public void setCluster(Cluster cluster) {
         this.cluster = cluster;

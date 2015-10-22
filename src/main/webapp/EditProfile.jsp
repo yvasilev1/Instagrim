@@ -47,7 +47,7 @@
 
                             <form method="POST"  action="EditProfile">
                                 <ul>
-                                    <li>Username <input  type="text" name="newUserName" value="<%=UserName%>" ></li>
+                                    
                                     <li>First Name <input type="text" name="newFirstName" value="<%=firstName%>"></li>
                                     <li>Last Name <input type="text" name="newLastName" value="<%=lastName%>"></li>
                                     <li>Email <input type="text" name="newEmail" value="<%=email%>"></li>

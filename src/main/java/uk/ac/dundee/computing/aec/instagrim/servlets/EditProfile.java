@@ -75,14 +75,13 @@ public class EditProfile extends HttpServlet {
         HttpSession session = request.getSession();
         lg = (LoggedIn) session.getAttribute("LoggedIn");
         String currUserName = lg.getUsername();
-        String newUserName = request.getParameter("newUserName");
         String newFirstName = request.getParameter("newFirstName");
         String newLastName = request.getParameter("newLastName");
         String newEmail = request.getParameter("newEmail");
         User us = new User();
         us.setCluster(cluster);
 
-        boolean updateInfo = us.updateProfile(currUserName, newUserName, newFirstName, newLastName, newEmail);
+        boolean updateInfo = us.updateProfile(currUserName, newFirstName, newLastName, newEmail);
         boolean isNewEmailValid = us.isValidEmail(newEmail);
         if (updateInfo == true & isNewEmailValid == true) {
 
