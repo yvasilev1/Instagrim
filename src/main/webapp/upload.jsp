@@ -4,6 +4,7 @@
     Author     : Administrator
 --%>
 
+<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn"%>
 <!DOCTYPE html>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
@@ -30,6 +31,7 @@
                 <div id="content">
                     <div class="innertube">
                         <article>
+                            <p>${uploadMessage}</p>
                             <h3>Picture Upload</h3>
                             <form method="POST" enctype="multipart/form-data" action="Image">
                                 File to upload: <input type="file" name="upfile"><br/>
@@ -42,12 +44,17 @@
                     </div>
                 </div>
             </main>
-
+                            <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                            String UserName = lg.getUsername();
+                            %>
+                            
             <nav>
 
                 <div class="innertube">
                     <h3></h3>
                     <ul>
+                        <li><a href="/Instagrim/UserProfile"><%=UserName%>'s Profile</a></li>
+                        <li><a href="/Instagrim/Images/<%=UserName%>"><%=UserName%>'s Images</a></li>
                         <li><a href="/Instagrim">Home</a></li>  
                     </ul>
 

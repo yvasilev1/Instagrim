@@ -187,9 +187,9 @@ public class User {
     }
     
     public String getProfilePic(String picid){
+        
          
-       
-        String storedPicID = " ";
+	   String storedPicID = " ";
         Session session = cluster.connect("instagrim");
         Statement statement;
         statement = QueryBuilder.select()
@@ -210,8 +210,7 @@ public class User {
          //  }
         
         }
-        
-        
+       
         return storedPicID;
     }
     

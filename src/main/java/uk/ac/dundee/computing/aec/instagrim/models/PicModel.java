@@ -55,7 +55,7 @@ public class PicModel {
         this.cluster = cluster;
     }
 
-    public void insertPic(byte[] b, String type, String name, String user) {
+    public boolean insertPic(byte[] b, String type, String name, String user) {
         try {
             Convertors convertor = new Convertors();
 
@@ -86,10 +86,12 @@ public class PicModel {
             session.execute(bsInsertPic.bind(picid, buffer, thumbbuf, processedbuf, user, DateAdded, length, thumblength, processedlength, type, name));
             session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
             session.close();
+          
 
         } catch (IOException ex) {
             System.out.println("Error --> " + ex);
         }
+          return true;
     }
 
     public byte[] picresize(String picid, String type) {

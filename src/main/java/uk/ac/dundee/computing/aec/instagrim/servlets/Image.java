@@ -144,12 +144,13 @@ public class Image extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        boolean isInserted;
         for (Part part : request.getParts()) {
             System.out.println("Part Name " + part.getName());
 
             String type = part.getContentType();
             String filename = part.getSubmittedFileName();
-
+           
             InputStream is = request.getPart(part.getName()).getInputStream();
             int i = is.available();
             HttpSession session = request.getSession();
@@ -164,15 +165,22 @@ public class Image extends HttpServlet {
                 System.out.println("Length : " + b.length);
                 PicModel tm = new PicModel();
                 tm.setCluster(cluster);
-                tm.insertPic(b, type, filename, username);
-
+               isInserted= tm.insertPic(b, type, filename, username);
+               if(isInserted==true){
+                String uploadMessage = "Successfully uploaded image";
+                request.setAttribute("uploadMessage", uploadMessage);
+                RequestDispatcher rd = request.getRequestDispatcher("/upload.jsp");
+                rd.forward(request, response);
+               }
                 is.close();
             }
-            RequestDispatcher rd = request.getRequestDispatcher("/upload.jsp");
-            rd.forward(request, response);
+           
         }
-
+        
+           
+         
     }
+    
 
     private void error(String mess, HttpServletResponse response) throws ServletException, IOException {
 
@@ -183,4 +191,6 @@ public class Image extends HttpServlet {
         out.close();
         return;
     }
+
+    
 }
