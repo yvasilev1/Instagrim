@@ -43,17 +43,17 @@
                         if (lg.getlogedin()) {
                 %>
                 <div class="innertube">
-                    <h3></h3>
+                    <h3>User Options</h3>
                     <ul>
                         <li><a href="/Instagrim/UserProfile"><%=UserName%>'s Profile</a></li>
                         <li><a href="/Instagrim/Images/<%=UserName%>"><%=UserName%>'s Images</a></li>
-                        <li><a href="upload.jsp">Upload</a></li>
-                        <li><a href="LogoutServlet">Logout</a><li>   
+                        <li><a href="/Instagrim/Upload">Upload</a></li>
+                        <li><a href="/Instagrim/LogoutServlet">Logout</a><li>   
                     </ul>
                     <%}
                     } else {
                     %>
-                    <h3></h3>
+                    <h3>Register or Login</h3>
                     <ul>
                         <li><a href="register.jsp">Register</a></li>
                         <li><a href="login.jsp">Login</a></li>

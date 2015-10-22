@@ -82,7 +82,7 @@
                     <h3></h3>
                     <ul>
                         <li><a href="/Instagrim/Images/<%=UserName%>"><%=UserName%>'s Images</a></li>
-                        <li><a href="upload.jsp">Upload</a></li>
+                        <li><a href="/Instagrim/Upload">Upload</a></li>
                         <li><a href="LogoutServlet">Logout</a><li>
                         <li><a href="/Instagrim">Home</a></li>
                     </ul>

@@ -14,7 +14,7 @@
 <html>
     <head>
         <title>Instagrim</title>
-        <link rel="stylesheet" type="text/css" href="Styles.css" />
+        <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
 
@@ -27,10 +27,9 @@
                 <%
                     LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
                     User us = new User();
-                    
+
                     String username = lg.getUsername();
-                           
-                    
+
                     PicModel pm = new PicModel();
                     Cluster cluster;
 
@@ -51,8 +50,7 @@
                     <div class="innertube">
                         <article>
 
-                            <%                                
-                            java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
+                            <%                                java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
                                 if (lsPics == null) {
                             %>
                             <p>No Pictures found</p>
@@ -66,7 +64,7 @@
                             <a href="/Instagrim/updateProfilePic/<%=p.getSUUID()%>" > Update Profile Pic </a></br>
                             </br>
 
-                            
+
                             <%
                                     }
                                 }
@@ -79,22 +77,16 @@
             <nav>
                 <%
                     String UserName = lg.getUsername();
-                    if (lg.getlogedin()) {
+
 
                 %>
                 <div class="innertube">
-                    <h3></h3>
+                    <h3>User options</h3>
                     <ul>
                         <li><a href="/Instagrim/UserProfile"><%=UserName%>'s Profile</a></li>
-                        <li><a href="/Instagrim/Images/<%=UserName%>"><%=UserName%>'s Images</a></li>
-                        <li><a href="upload.jsp">Upload</a></li>
-                        <li><a href="LogoutServlet">Logout</a><li>   
+                        <li><a href="/Instagrim/Upload">Upload</a></li>
+                        <li><a href="/Instagrim/">Home</a></li>
                     </ul>
-                    <%} else {
-                        }
-
-
-                    %>
 
                 </div>
             </nav>
