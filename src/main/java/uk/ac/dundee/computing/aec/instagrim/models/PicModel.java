@@ -18,6 +18,10 @@ import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
+import com.datastax.driver.core.Statement;
+import com.datastax.driver.core.querybuilder.QueryBuilder;
+import static com.datastax.driver.core.querybuilder.QueryBuilder.eq;
+import static com.datastax.driver.core.querybuilder.QueryBuilder.set;
 import com.datastax.driver.core.utils.Bytes;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -30,6 +34,7 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.UUID;
 import javax.imageio.ImageIO;
 import static org.imgscalr.Scalr.*;
 import org.imgscalr.Scalr.Method;
@@ -155,6 +160,61 @@ public class PicModel {
             }
         }
         return Pics;
+    }
+
+    public java.util.LinkedList<Pic> getPics(String User) {
+        java.util.LinkedList<Pic> Pics = new java.util.LinkedList<>();
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("select * from pics");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                ));
+        if (rs.isExhausted()) {
+            System.out.println("No Images returned");
+            return null;
+        } else {
+            for (Row row : rs) {
+                Pic pic = new Pic();
+                java.util.UUID UUID = row.getUUID("picid");
+                System.out.println("UUID" + UUID.toString());
+                pic.setUUID(UUID);
+                Pics.add(pic);
+
+            }
+        }
+        return Pics;
+    }
+
+    public void updateProfilePic(String picid, String currUserName) {
+
+        Session session = cluster.connect("instagrim");
+
+        UUID StoredID;
+        Statement statement;
+        statement = QueryBuilder.select()
+                .all()
+                .from("instagrim", "userprofiles");
+        ResultSet rs = session.execute(statement);
+
+        for (Row row : rs) {
+
+            String user_name = row.getString("login");
+            StoredID = row.getUUID("userId");
+
+            if (user_name.equals(currUserName)) {
+
+                Statement statement1;
+                statement1 = QueryBuilder.update("instagrim", "userprofiles")
+                        .with(set("profilePic", picid))
+                        .where(eq("userId", StoredID));
+
+                session.execute(statement1);
+
+            }
+
+        }
     }
 
     public Pic getPic(int image_type, java.util.UUID picid) {

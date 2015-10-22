@@ -185,6 +185,38 @@ public class User {
         }
         return true;
     }
+    
+    public String getProfilePic(String picid){
+         
+       
+        String storedPicID = " ";
+        Session session = cluster.connect("instagrim");
+        Statement statement;
+        statement = QueryBuilder.select()
+                .all()
+                .from("instagrim", "userprofiles");
+        ResultSet rs = session.execute(statement);
+
+        for (Row row : rs) {
+
+            //String user_name = row.getString("login");
+          
+            
+           // if (user_name.equals(user)) {
+
+             storedPicID = row.getString("profilePic");
+                       
+        
+         //  }
+        
+        }
+        
+        
+        return storedPicID;
+    }
+    
+    
+    
 
     public void setCluster(Cluster cluster) {
         this.cluster = cluster;
