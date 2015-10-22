@@ -4,6 +4,9 @@
     Author     : Yulian
 --%>
 
+<%@page import="uk.ac.dundee.computing.aec.instagrim.models.User"%>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts"%>
+<%@page import="com.datastax.driver.core.Cluster"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
@@ -19,6 +22,12 @@
 
             LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
             Profile pf = (Profile) session.getAttribute("Profile");
+            User us = new User();
+            Cluster cluster;
+            cluster = CassandraHosts.getCluster();
+            us.setCluster(cluster);
+            lg.setProfilePic(us.getProfilePic(lg.getUsername()));
+
             if (lg != null) {
                 String UserName = lg.getUsername();
                 String firstName = pf.getFirstName();
@@ -50,14 +59,14 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Row 1, Cell 1</td>
+                                    <td> <a href="/Instagrim/Image/<%=lg.getProfilePic()%>" ><img src="/Instagrim/Thumb/<%=lg.getProfilePic()%>"></a> </td>                         
                                     <td> <p>Username: <%=UserName%></p>
                                         <p>First Name: <%=firstName%></p>
                                         <p>Last Name: <%=lastName%></p>
                                         <p>Email: <%=email%></p></td></td>
                                 </tr>
                                 <tr>
-                                    <td><a href="/Instagrim/ProfilePicUpload.jsp">Upload Profile Picture</a></td>
+                                    <td><a href="/Instagrim/Images/<%=UserName%>">Select New Profile Picture</a></td>
                                     <td><a href="/Instagrim/EditProfile">Edit Profile</a></td>
                                 </tr>
                             </tbody>

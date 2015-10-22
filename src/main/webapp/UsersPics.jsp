@@ -3,6 +3,10 @@
     Created on : Sep 24, 2014, 2:52:48 PM
     Author     : Yulian
 --%>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts"%>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.models.User"%>
+<%@page import="com.datastax.driver.core.Cluster"%>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.models.PicModel"%>
 <%@page import="java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
@@ -20,6 +24,23 @@
             <div class="innertube">
                 <h1>Instagrim </h1>
                 <h2>Your world in Black and White</h2>
+                <%
+                    LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                    User us = new User();
+                    
+                    String username = lg.getUsername();
+                           
+                    
+                    PicModel pm = new PicModel();
+                    Cluster cluster;
+
+                    cluster = CassandraHosts.getCluster();
+                    pm.setCluster(cluster);
+                    us.setCluster(cluster);
+                    lg.setProfilePic(us.getProfilePic(lg.getUsername()));
+
+
+                %>
             </div>
         </header>
 
@@ -29,25 +50,27 @@
                 <div id="content">
                     <div class="innertube">
                         <article>
-                            <h1>Your Pics</h1>
-                            <%
-                                java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
+
+                            <%                                
+                            java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
                                 if (lsPics == null) {
                             %>
                             <p>No Pictures found</p>
                             <%
                             } else {
-                                Iterator<Pic> iterator;
-                                iterator = lsPics.iterator();
-                                while (iterator.hasNext()) {
-                                    Pic p = (Pic) iterator.next();
+                                for (int i = 0; i < lsPics.size(); i++) {
+                                    Pic p = lsPics.get(i);
 
                             %>
-                            <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/><%
+                            <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a>
+                            <a href="/Instagrim/updateProfilePic/<%=p.getSUUID()%>" > Update Profile Pic </a></br>
+                            </br>
 
+                            
+                            <%
                                     }
                                 }
-                                %>
+                            %>
                         </article>
                     </div>
                 </div>
@@ -55,10 +78,9 @@
 
             <nav>
                 <%
-                    LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                    if (lg != null) {
-                        String UserName = lg.getUsername();
-                        if (lg.getlogedin()) {
+                    String UserName = lg.getUsername();
+                    if (lg.getlogedin()) {
+
                 %>
                 <div class="innertube">
                     <h3></h3>
@@ -68,9 +90,10 @@
                         <li><a href="upload.jsp">Upload</a></li>
                         <li><a href="LogoutServlet">Logout</a><li>   
                     </ul>
-                    <%}
-                        } else {
+                    <%} else {
                         }
+
+
                     %>
 
                 </div>
