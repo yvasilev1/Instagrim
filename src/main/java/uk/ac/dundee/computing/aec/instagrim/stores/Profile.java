@@ -19,6 +19,7 @@ public class Profile {
     String LastName = null;
     String Email = null;
 
+
     public void setFirstName(String firstName) {
         this.FirstName = firstName;
     }
@@ -38,10 +39,8 @@ public class Profile {
     public void setEmail(String email) {
         this.Email = email;
     }
-
-    public String getEmail() {
+     public String getEmail() {
         return Email;
 
     }
-
 }
