@@ -51,6 +51,8 @@
                         <article>
 
                             <%                                java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
+                                java.util.LinkedList<String> comments = new java.util.LinkedList<>();
+                                java.util.LinkedList<String> users = new java.util.LinkedList<>();
                                 if (lsPics == null) {
                             %>
                             <p>No Pictures found</p>
@@ -58,16 +60,37 @@
                             } else {
                                 for (int i = 0; i < lsPics.size(); i++) {
                                     Pic p = lsPics.get(i);
+                                    comments = pm.getComments(p.getSUUID());
+                                    users = pm.getUsers(p.getSUUID());
+
 
                             %>
                             <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a>
-                            <a href="/Instagrim/updateProfilePic/<%=p.getSUUID()%>" > Update Profile Pic </a></br>
+                            <form action="/Instagrim/updateProfilePic/<%=p.getSUUID()%>">
+                                <input type="submit" value="Update Avatar" >
+                            </form>
                             </br>
+                            <form name="input" action="/Instagrim/Comments" method="post">
+                                <input type="text" name="user" value="<%=lg.getUsername()%>" hidden>
+                                <input type="text" name="picid" value="<%=p.getSUUID()%>" hidden>
+                                <input type="text" name="comment">
 
 
-                            <%
+                                <input type="submit" value="Comment">
+                            </form>
+                            <a>Comments:</a></br>
+
+                            <%if (comments != null) {
+                                    for (int j = 0; j < comments.size(); j++) {%>
+
+                            <IMG HEIGHT=25 WIDTH=25 SRC="/Instagrim/Image/<%=us.getProfilePic(users.get(j))%>" >
+                            <a href="/Instagrim/Images/<%=users.get(j)%>" style="text-decoration: none" > <% out.println(users.get(j));%>:  </a>
+                            <a > <% out.println(comments.get(j)); %> </a></br>
+                            <% }
+                                        }
                                     }
                                 }
+
                             %>
                         </article>
                     </div>
@@ -75,15 +98,11 @@
             </main>
 
             <nav>
-                <%
-                    String UserName = lg.getUsername();
 
-
-                %>
                 <div class="innertube">
                     <h3>User options</h3>
                     <ul>
-                        <li><a href="/Instagrim/UserProfile"><%=UserName%>'s Profile</a></li>
+                        <li><a href="/Instagrim/UserProfile"> Your Profile</a></li>
                         <li><a href="/Instagrim/Upload">Upload</a></li>
                         <li><a href="/Instagrim/">Home</a></li>
                     </ul>

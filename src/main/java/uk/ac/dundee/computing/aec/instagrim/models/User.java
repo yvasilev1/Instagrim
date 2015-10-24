@@ -92,7 +92,7 @@ public class User {
         Matcher m0 = p0.matcher(email);
 
         
-        if (m0.matches()== true) {
+        if (m0.matches()) {
             return true;
         }else
 

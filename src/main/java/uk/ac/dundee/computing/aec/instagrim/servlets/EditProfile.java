@@ -82,9 +82,10 @@ public class EditProfile extends HttpServlet {
         User us = new User();
         us.setCluster(cluster);
 
-        boolean updateInfo = us.updateProfile(currUserName, newFirstName, newLastName, newEmail,newLocation);
-        boolean isNewEmailValid = us.isValidEmail(newEmail);
-        if (updateInfo == true & isNewEmailValid == true) {
+       
+        
+         boolean updateInfo = us.updateProfile(currUserName, newFirstName, newLastName, newEmail,newLocation);
+        if (updateInfo == true) {
 
             RequestDispatcher rd = request.getRequestDispatcher("updateSuccess.jsp");
             rd.forward(request, response);

@@ -69,8 +69,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><a href="/Instagrim/Images/<%=UserName%>">Select New Profile Picture</a></td>
-                                    <td><a href="/Instagrim/EditProfile">Edit Profile</a></td>
+                                    <td><a href="/Instagrim/Images/<%=UserName%>"style="text-decoration: none">Select New Profile Picture</a></td>
+                                    <td><a href="/Instagrim/EditProfile" style="text-decoration: none">Edit Profile</a></td>
                                 </tr>
                             </tbody>
                         </table>
