@@ -5,6 +5,10 @@
 --%>
 
 
+<%@page import="uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts"%>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.models.User"%>
+<%@page import="com.datastax.driver.core.Cluster"%>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.models.PicModel"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
@@ -36,17 +40,28 @@
 
             <nav>
                 <%
-
-                    LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                          LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                        PicModel pm = new PicModel();
+                        
+                        Cluster cluster;
+                                                Cluster cluster2;
+                        User us = new User();
+                        cluster = CassandraHosts.getCluster();
+                        cluster2 = CassandraHosts.getCluster();
+                        us.setCluster(cluster);
+                        pm.setCluster(cluster2);
+                  
                     if (lg != null) {
                         String UserName = lg.getUsername();
                         if (lg.getlogedin()) {
+                            lg.setProfilePic(us.getProfilePic(lg.getUsername()));
                 %>
                 <div class="innertube">
                     <h3>User Options</h3>
                     <ul>
                         <li><a href="/Instagrim/UserProfile"><%=UserName%>'s Profile</a></li>
                         <li><a href="/Instagrim/Images/<%=UserName%>"><%=UserName%>'s Images</a></li>
+                        <li><a href="/Instagrim/Wall/majed"><%=UserName%>'s Wall</a></li>
                         <li><a href="/Instagrim/Upload">Upload</a></li>
                         <li><a href="/Instagrim/LogoutServlet">Logout</a><li>   
                     </ul>

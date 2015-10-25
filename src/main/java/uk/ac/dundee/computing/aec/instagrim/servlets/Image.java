@@ -39,7 +39,10 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
     "/Images/*",
     "/updateProfilePic",
     "/updateProfilePic/",
-    "/updateProfilePic/*"
+    "/updateProfilePic/*",
+    "/Wall",
+    "/Wall/",
+    "/Wall/*"
         
 })
 @MultipartConfig
@@ -60,6 +63,7 @@ public class Image extends HttpServlet {
         CommandsMap.put("Images", 2);
         CommandsMap.put("Thumb", 3);
         CommandsMap.put("updateProfilePic", 4);
+        CommandsMap.put("Wall", 5);
         
 
     }
@@ -96,6 +100,8 @@ public class Image extends HttpServlet {
             case 4:
                 newPP(args[2], response, request);
                 break;
+            case 5:
+                Wall(args[2], request,response);
             default:
                 error("Bad Operator", response);
         }
@@ -111,6 +117,14 @@ public class Image extends HttpServlet {
      response.sendRedirect("/Instagrim/Images/"+user);
 
    
+    }
+    private void Wall(String User, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PicModel pm = new PicModel();
+        pm.setCluster(cluster);
+        java.util.LinkedList<Pic> lsPics = pm.getPicsForUser(User);
+        RequestDispatcher rd = request.getRequestDispatcher("/Wall.jsp");
+        request.setAttribute("Pics", lsPics);
+        rd.forward(request, response);
     }
 
     private void DisplayImageList(String User, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

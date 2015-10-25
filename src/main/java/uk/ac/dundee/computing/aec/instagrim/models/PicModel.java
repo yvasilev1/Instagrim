@@ -142,12 +142,27 @@ public class PicModel {
     public java.util.LinkedList<Pic> getPicsForUser(String User) {
         java.util.LinkedList<Pic> Pics = new java.util.LinkedList<>();
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("select picid from userpiclist where user =?");
+        PreparedStatement ps;
+        if ("majed".equals(User)){
+        ps = session.prepare("select picid,user from userpiclist");
+        }else {
+         ps = session.prepare("select picid,user from userpiclist where user =?");
+            //ps = session.prepare("select picid,name from userpiclist");
+        }
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
+                if ("majed".equals(User)){
+
         rs = session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
+                        ));
+                }
+                else{
+                    rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
                         User));
+                    
+                }
         if (rs.isExhausted()) {
             System.out.println("No Images returned");
             return null;
@@ -157,6 +172,7 @@ public class PicModel {
                 java.util.UUID UUID = row.getUUID("picid");
                 System.out.println("UUID" + UUID.toString());
                 pic.setUUID(UUID);
+                pic.setUser(row.getString("user"));
                 Pics.add(pic);
 
             }
