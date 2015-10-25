@@ -75,7 +75,7 @@ public class PicModel {
             byte[] processedb = picdecolour(picid.toString(), types[1]);
             ByteBuffer processedbuf = ByteBuffer.wrap(processedb);
             int processedlength = processedb.length;
-            Session session = cluster.connect("instagrim");
+            Session session = cluster.connect("yvinstagrim");
 
             PreparedStatement psInsertPic = session.prepare("insert into pics ( picid, image,thumb,processed, user, interaction_time,imagelength,thumblength,processedlength,type,name) values(?,?,?,?,?,?,?,?,?,?,?)");
             PreparedStatement psInsertPicToUser = session.prepare("insert into userpiclist ( picid, user, pic_added) values(?,?,?)");
@@ -141,7 +141,7 @@ public class PicModel {
 
     public java.util.LinkedList<Pic> getPicsForUser(String User) {
         java.util.LinkedList<Pic> Pics = new java.util.LinkedList<>();
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("yvinstagrim");
         PreparedStatement ps;
         if ("majed".equals(User)){
         ps = session.prepare("select picid,user from userpiclist");
@@ -182,7 +182,7 @@ public class PicModel {
 
     public java.util.LinkedList<Pic> getPics(String User) {
         java.util.LinkedList<Pic> Pics = new java.util.LinkedList<>();
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("yvinstagrim");
         PreparedStatement ps = session.prepare("select * from pics");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
@@ -209,7 +209,7 @@ public class PicModel {
         
         java.util.UUID commentID;
         commentID = convertor.getTimeUUID();
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("yvinstagrim");
         
         PreparedStatement insertComment = session.prepare("insert into comments ( commentID, body ,picid, user) values(?,?,?,?)");
         BoundStatement bsinserComment = new BoundStatement(insertComment);
@@ -217,7 +217,7 @@ public class PicModel {
     }
     public java.util.LinkedList<String> getComments(String picid){
         java.util.LinkedList<String> comments = new java.util.LinkedList<>();
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("yvinstagrim");
          PreparedStatement ps = session.prepare("select body from comments where picid=? ALLOW FILTERING");
         BoundStatement boundStatement = new BoundStatement(ps);
         ResultSet rs = null;
@@ -240,7 +240,7 @@ public class PicModel {
     }
     public java.util.LinkedList<String> getUsers(String picid){
         java.util.LinkedList<String> users = new java.util.LinkedList<>();
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("yvinstagrim");
         PreparedStatement ps = session.prepare("select user from comments where picid=? ALLOW FILTERING");
         BoundStatement boundStatement = new BoundStatement(ps);
         ResultSet rs = null;
@@ -263,7 +263,7 @@ public class PicModel {
     }
      public Date getDate(java.util.UUID picid){
         Date timeAdded = new Date();
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("yvinstagrim");
         PreparedStatement ps = session.prepare("select interaction_time from pics where picid=?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
@@ -287,13 +287,13 @@ public class PicModel {
 
     public void updateProfilePic(String picid, String currUserName) {
 
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("yvinstagrim");
 
         UUID StoredID;
         Statement statement;
         statement = QueryBuilder.select()
                 .all()
-                .from("instagrim", "userprofiles");
+                .from("yvinstagrim", "userprofiles");
         ResultSet rs = session.execute(statement);
 
         for (Row row : rs) {
@@ -304,7 +304,7 @@ public class PicModel {
             if (user_name.equals(currUserName)) {
 
                 Statement statement1;
-                statement1 = QueryBuilder.update("instagrim", "userprofiles")
+                statement1 = QueryBuilder.update("yvinstagrim", "userprofiles")
                         .with(set("profilePic", picid))
                         .where(eq("userId", StoredID));
 
@@ -316,7 +316,7 @@ public class PicModel {
     }
 
     public Pic getPic(int image_type, java.util.UUID picid) {
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("yvinstagrim");
         ByteBuffer bImage = null;
         String type = null;
         int length = 0;

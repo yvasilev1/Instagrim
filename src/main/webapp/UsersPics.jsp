@@ -62,10 +62,11 @@
                                     Pic p = lsPics.get(i);
                                     comments = pm.getComments(p.getSUUID());
                                     users = pm.getUsers(p.getSUUID());
-
+                                    if (us.doesUserFollow(lg.getUsername(), p.getUser())) {
 
                             %>
                             <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a>
+
                             <form action="/Instagrim/updateProfilePic/<%=p.getSUUID()%>">
                                 <input type="submit" value="Update Avatar" >
                             </form>
@@ -86,11 +87,17 @@
                             <IMG HEIGHT=25 WIDTH=25 SRC="/Instagrim/Image/<%=us.getProfilePic(users.get(j))%>" >
                             <a href="/Instagrim/Images/<%=users.get(j)%>" style="text-decoration: none" > <% out.println(users.get(j));%>:  </a>
                             <a > <% out.println(comments.get(j)); %> </a></br>
-                            <% }
+                            <% } %>
+                            </br>
+                            -----------------------------------------------------------------------------------------------------------------------------------------------
+                            </br>
+                            </br>
+
+                            <%
+                                            }
                                         }
                                     }
                                 }
-
                             %>
                         </article>
                     </div>

@@ -40,9 +40,9 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
     "/updateProfilePic",
     "/updateProfilePic/",
     "/updateProfilePic/*",
-    "/Wall",
-    "/Wall/",
-    "/Wall/*"
+    "/FindNewPeople",
+    "/FindNewPeople/",
+    "/FindNewPeople/*"
         
 })
 @MultipartConfig
@@ -63,7 +63,7 @@ public class Image extends HttpServlet {
         CommandsMap.put("Images", 2);
         CommandsMap.put("Thumb", 3);
         CommandsMap.put("updateProfilePic", 4);
-        CommandsMap.put("Wall", 5);
+        CommandsMap.put("FindNewPeople", 5);
         
 
     }
@@ -101,7 +101,8 @@ public class Image extends HttpServlet {
                 newPP(args[2], response, request);
                 break;
             case 5:
-                Wall(args[2], request,response);
+                FindNewPeople(args[2], request, response);
+                break;
             default:
                 error("Bad Operator", response);
         }
@@ -118,14 +119,16 @@ public class Image extends HttpServlet {
 
    
     }
-    private void Wall(String User, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+     private void FindNewPeople(String User, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PicModel pm = new PicModel();
         pm.setCluster(cluster);
         java.util.LinkedList<Pic> lsPics = pm.getPicsForUser(User);
-        RequestDispatcher rd = request.getRequestDispatcher("/Wall.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/FindNewPeople.jsp");
         request.setAttribute("Pics", lsPics);
         rd.forward(request, response);
     }
+
+    
 
     private void DisplayImageList(String User, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PicModel tm = new PicModel();
@@ -136,7 +139,7 @@ public class Image extends HttpServlet {
         rd.forward(request, response);
 
     }
-
+   
     private void DisplayImage(int type, String Image, HttpServletResponse response) throws ServletException, IOException {
         PicModel tm = new PicModel();
         tm.setCluster(cluster);

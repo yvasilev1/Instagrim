@@ -61,7 +61,8 @@
                     <ul>
                         <li><a href="/Instagrim/UserProfile"><%=UserName%>'s Profile</a></li>
                         <li><a href="/Instagrim/Images/<%=UserName%>"><%=UserName%>'s Images</a></li>
-                        <li><a href="/Instagrim/Wall/majed"><%=UserName%>'s Wall</a></li>
+                        <li><a href="/Instagrim/FindNewPeople/majed">Find New People</a></li>
+                        <li><a href="/Instagrim/Followers"><%=UserName%>'s followers</a></li>
                         <li><a href="/Instagrim/Upload">Upload</a></li>
                         <li><a href="/Instagrim/LogoutServlet">Logout</a><li>   
                     </ul>

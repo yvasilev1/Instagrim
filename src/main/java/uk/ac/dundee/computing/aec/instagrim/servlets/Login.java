@@ -64,6 +64,10 @@ public class Login extends HttpServlet {
             lg.setUsername(logUsername);
             lg.setProfilePic(us.getProfilePic(lg.getUsername()));
             us.getProfileInfo(pf, us,logUsername);
+            
+            
+            
+           
             //pf.getFirstName();
             //request.setAttribute("LoggedIn", lg);
 

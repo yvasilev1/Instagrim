@@ -27,13 +27,12 @@
                 <h2>Your world in Black and White</h2>
                 <%
                     LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                    User us = new User();
-
                     String username = lg.getUsername();
 
                     PicModel pm = new PicModel();
                     Cluster cluster;
 
+                    User us = new User();
                     cluster = CassandraHosts.getCluster();
                     pm.setCluster(cluster);
                     us.setCluster(cluster);
@@ -43,20 +42,7 @@
                 %>
             </div>
         </header>
-            <nav>
 
-                <div class="innertube">
-                    <h3>User options</h3>
-                    <ul>
-                       
-                        <li><a href="/Instagrim/UserProfile"> Your Profile</a></li>
-                        <li><a href="/Instagrim/Images/<%=username%>"><%=username%>'s Images</a></li>
-                        <li><a href="/Instagrim/Upload">Upload</a></li>
-                        <li><a href="/Instagrim/">Home</a></li>
-                    </ul>
-
-                </div>
-            </nav>
 
         <div id="wrapper">
 
@@ -77,43 +63,62 @@
                                     Pic p = lsPics.get(i);
                                     comments = pm.getComments(p.getSUUID());
                                     users = pm.getUsers(p.getSUUID());
-
+                                    if (!us.doesUserFollow(lg.getUsername(), p.getUser())) {
 
                             %>
                             <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a>
-                            <form action="/Instagrim/updateProfilePic/<%=p.getSUUID()%>">
-                                <input type="submit" value="Update Avatar" >
-                            </form>
-                            </br>
                             <IMG HEIGHT=50 WIDTH=50 SRC="/Instagrim/Image/<%=us.getProfilePic(p.getUser())%>" >
                             <a href="/Instagrim/Images/<%=p.getUser()%>" > <% out.println(p.getUser());%> </a>
                             </br>
-                            <form name="input" action="/Instagrim/Comments" method="post">
+
+                            <form name="input" action="/Instagrim/Followers" method="POST">
                                 <input type="text" name="user" value="<%=lg.getUsername()%>" hidden>
-                                <input type="text" name="picid" value="<%=p.getSUUID()%>" hidden>
-                                <input type="text" name="comment">
+                                <input type="text" name="user1" value="<%=p.getUser()%>" hidden>
 
 
-                                <input type="submit" value="Comment">
+
+                                <input type="submit" value="Follow">
                             </form>
-                            <a>Comments:</a></br>
+                          
 
-                            <%if (comments != null) {
-                                    for (int j = 0; j < comments.size(); j++) {%>
+                            <%
+                                if (comments != null) {
 
-                            <IMG HEIGHT=25 WIDTH=25 SRC="/Instagrim/Image/<%=us.getProfilePic(users.get(j))%>" >
-                            <a href="/Instagrim/Images/<%=users.get(j)%>" style="text-decoration: none" > <% out.println(users.get(j));%>:  </a>
-                            <a > <% out.println(comments.get(j)); %> </a></br>
-                            <% }
+                                    for (int j = 0; j < comments.size(); j++) {
+                            %>
+
+
+                                   <!--   <a href="/Instagrim/Images/<%=users.get(j)%>" style="text-decoration: none" > <% out.println(users.get(j));%>:  </a>
+                                        <a > <% out.println(comments.get(j)); %> </a></br>-->
+                            <%
+                                }
+                            %>
+                            </br></br>
+
+
+                            <%
+                                            }
                                         }
                                     }
                                 }
-
                             %>
                         </article>
                     </div>
                 </div>
             </main>
+            <nav>
+
+                <div class="innertube">
+                    <h3>User options</h3>
+                    <ul>
+
+                        <li><a href="/Instagrim/UserProfile"> Your Profile</a></li>
+                        <li><a href="/Instagrim/Upload">Upload</a></li>
+                        <li><a href="/Instagrim/">Home</a></li>
+                    </ul>
+
+                </div>
+            </nav>
 
         </div>
 
@@ -122,6 +127,5 @@
                 <p> &COPY; Yulian V</p>
             </div>
         </footer>
-
     </body>
 </html>
