@@ -284,7 +284,7 @@ public class User {
     public java.util.LinkedList<String> getUserForFollower(String logUserName) {
         java.util.LinkedList<String> usersForFollowers = new java.util.LinkedList<>();
         Session session = cluster.connect("yvinstagrim");
-        PreparedStatement ps = session.prepare("select user1 from followers where user=?");
+        PreparedStatement ps = session.prepare("select user1 from followers where user=? ALLOW FILTERING");
         BoundStatement boundStatement = new BoundStatement(ps);
         ResultSet rs = null;
         rs = session.execute( // this is where the query is executed
@@ -292,18 +292,44 @@ public class User {
                         logUserName));
         if (rs.isExhausted()) {
             System.out.println("No Images returned");
+            
+        } else {
+            for (Row row : rs) {
+                
+              
+                    usersForFollowers.add(row.getString("user1"));
+
+            }
+            
+
+        }
+        return usersForFollowers;
+        
+    }
+      public java.util.LinkedList<String> getUser(String userName) {
+        java.util.LinkedList<String> User = new java.util.LinkedList<>();
+        Session session = cluster.connect("yvinstagrim");
+        PreparedStatement ps = session.prepare("select * from userprofiles");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                ));
+        if (rs.isExhausted()) {
+            System.out.println("No Images returned");
             return null;
         } else {
             for (Row row : rs) {
-
-                usersForFollowers.add(row.getString("user1"));
+                LoggedIn lg = new LoggedIn();
+                String user= row.getString("login");
+                lg.setUsername(user);
+               
+               User.add(user);
 
             }
-
         }
-
-        return usersForFollowers;
-    }
+        return User;
+      }
 
     public void setCluster(Cluster cluster) {
         this.cluster = cluster;

@@ -70,7 +70,7 @@ public class Comments extends HttpServlet {
       
       
       
-     response.sendRedirect("/Instagrim/Images/"+ userName);
+     response.sendRedirect("/Instagrim/");
     }
 
     /**

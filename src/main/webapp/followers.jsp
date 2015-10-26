@@ -25,8 +25,11 @@
 
         String userName = lg.getUsername();
 
-       
-       
+        Cluster cluster;
+
+        cluster = CassandraHosts.getCluster();
+        us.setCluster(cluster);
+
 
     %>
 
@@ -46,31 +49,34 @@
                     <div class="innertube">
                         <article>
 
-                            <%                                java.util.LinkedList<String> usersForFollowers = new java.util.LinkedList<>();
+                               <%
+                                        java.util.LinkedList<String> usersForFollowers = new java.util.LinkedList<>();
 
+                                for (int i = 0; i < 1000; i++) {
+
+                                    usersForFollowers = us.getUserForFollower(lg.getUsername());
+                                }
+                            %>                             
+                            <%
                                 if (usersForFollowers == null) {
 
                             %>
                             <p>No followers found</p>
 
-                            <%                            } else {
-                                for (int i = 0; i < usersForFollowers.size(); i++) {
-
-                                    usersForFollowers = us.getUserForFollower(lg.getUsername());
+                            <%                           }   
                             %>
                             <h2><%=lg.getUsername()%>'s Followers</h2>
 
-                            <%if (usersForFollowers != null) {
+                            <% if (usersForFollowers != null) {
                                     for (int j = 0; j < usersForFollowers.size(); j++) {%>
-                            <p>Imali nqkoi tuk?</p>
-                            <a href="/Instagrim/Images/<%=usersForFollowers.get(j)%>" > <% out.println(usersForFollowers.get(j));%>'s pictures  </a>
-                            <p>asdsad?</p>
+
+                                    <li><a href="/Instagrim/Images/<%=usersForFollowers.get(j)%>" > <% out.println(usersForFollowers.get(j));%>'s pictures  </a></li>
+
                             <% }
-                                        }
-                                    }
                                 }
-                            %>
-                            <p>asdsad</p>
+                               
+%>  
+
                         </article>
 
                     </div>
