@@ -29,7 +29,7 @@
 
                     User us = new User();
 
-                    String username = lg.getUsername();
+             
 
                     PicModel pm = new PicModel();
                     Cluster cluster;
@@ -79,6 +79,30 @@
 
                                 <input type="submit" value="Comment">
                             </form>
+                            <script type="text/javascript">
+                               
+                                $("#submit").click(function() {
+                                     LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                                        var user = $("#user").val();
+                                        var picid = $("#picid").val();
+                                        var username= lg.getUsername();
+                                        $.ajax({
+                                                url: '/Instagrim/Images/'+ username,
+                                                type: 'POST',
+                                                data: {
+                                                user: user,
+                                                picid: picid
+                                                },
+                                                success: function(data) {
+                                                alert('Update Success');
+                                                },
+                                                failure: function(data) {
+                                                alert('Update Failed');
+                                                }
+                                        });
+                                        )};
+                            </script>
+                            </br>
                             <a>Comments:</a></br>
 
                             <%if (comments != null) {
