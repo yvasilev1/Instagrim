@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
+import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 
 /**
  *
@@ -59,18 +60,18 @@ public class Comments extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
       PicModel pm = new PicModel();
+      Pic p = new Pic();
       pm.setCluster(cluster);
       
       String userName = request.getParameter("user");
       String picID = request.getParameter("picid");
       String comment = request.getParameter("comment");
       pm.addComment(userName, picID, comment);
-            
       
       
       
       
-     response.sendRedirect("/Instagrim/");
+     response.sendRedirect("/Instagrim/Images/");
     }
 
     /**

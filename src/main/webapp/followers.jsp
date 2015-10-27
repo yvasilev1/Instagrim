@@ -49,13 +49,11 @@
                     <div class="innertube">
                         <article>
 
-                               <%
-                                        java.util.LinkedList<String> usersForFollowers = new java.util.LinkedList<>();
+                            <%                                   java.util.LinkedList<String> usersForFollowers = new java.util.LinkedList<>();
 
-                                for (int i = 0; i < 1000; i++) {
-
+                                
                                     usersForFollowers = us.getUserForFollower(lg.getUsername());
-                                }
+                              
                             %>                             
                             <%
                                 if (usersForFollowers == null) {
@@ -63,19 +61,19 @@
                             %>
                             <p>No followers found</p>
 
-                            <%                           }   
+                            <%                           }
                             %>
                             <h2><%=lg.getUsername()%>'s Followers</h2>
 
                             <% if (usersForFollowers != null) {
                                     for (int j = 0; j < usersForFollowers.size(); j++) {%>
 
-                                    <li><a href="/Instagrim/Images/<%=usersForFollowers.get(j)%>" > <% out.println(usersForFollowers.get(j));%>'s pictures  </a></li>
+                            <li><a href="/Instagrim/Images/<%=usersForFollowers.get(j)%>" > <% out.println(usersForFollowers.get(j));%>'s pictures  </a></li>
 
                             <% }
                                 }
-                               
-%>  
+
+                            %>  
 
                         </article>
 

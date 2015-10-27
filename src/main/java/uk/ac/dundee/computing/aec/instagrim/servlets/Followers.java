@@ -69,7 +69,7 @@ public class Followers extends HttpServlet {
         us.setCluster(cluster);
         us.followUser(user, user1);
         HttpSession session = request.getSession();
-        response.sendRedirect("/Instagrim/FindNewPeople.jsp");
+        response.sendRedirect("/Instagrim/FindNewPeople/majed");
         
     }
 

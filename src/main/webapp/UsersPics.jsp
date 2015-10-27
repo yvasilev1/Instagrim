@@ -26,6 +26,7 @@
                 <h2>Your world in Black and White</h2>
                 <%
                     LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+
                     User us = new User();
 
                     String username = lg.getUsername();
@@ -36,7 +37,6 @@
                     cluster = CassandraHosts.getCluster();
                     pm.setCluster(cluster);
                     us.setCluster(cluster);
-                    lg.setProfilePic(us.getProfilePic(lg.getUsername()));
 
 
                 %>
