@@ -88,6 +88,32 @@ public class User {
 
         return false;
     }
+     public boolean isValidEmailReg(String email) {
+       // System.out.println(username);
+        Session session = cluster.connect("yvinstagrim");
+        PreparedStatement ps = session.prepare("select * from userprofiles");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        ));
+        if (rs.isExhausted()) {
+            System.out.println("No Images returned");
+            return false;
+        } else {
+            for (Row row : rs) {
+                String storedEmail = row.getString("email");
+                if (storedEmail.equals(email)){
+                    return false;
+                }
+
+                
+            }
+        }
+
+        return true;
+    }
+    
 
     public boolean isValidEmail(String email) {
         Pattern p0 = Pattern.compile(".+@.+\\.[a-z]+");
@@ -306,30 +332,7 @@ public class User {
         return usersForFollowers;
         
     }
-      public java.util.LinkedList<String> getUser(String userName) {
-        java.util.LinkedList<String> User = new java.util.LinkedList<>();
-        Session session = cluster.connect("yvinstagrim");
-        PreparedStatement ps = session.prepare("select * from userprofiles");
-        ResultSet rs = null;
-        BoundStatement boundStatement = new BoundStatement(ps);
-        rs = session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                ));
-        if (rs.isExhausted()) {
-            System.out.println("No Images returned");
-            return null;
-        } else {
-            for (Row row : rs) {
-                LoggedIn lg = new LoggedIn();
-                String user= row.getString("login");
-                lg.setUsername(user);
-               
-               User.add(user);
-
-            }
-        }
-        return User;
-      }
+     
 
     public void setCluster(Cluster cluster) {
         this.cluster = cluster;

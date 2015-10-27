@@ -33,6 +33,7 @@
                             <p>${errorMessage}</p>
                             <p>${errorMessage1}</p>
                             <p>${errorMessage2}</p>
+                            <p>${errorMessage3}</p>
 
                             <form method="POST"  action="Register">
                                 <ul>

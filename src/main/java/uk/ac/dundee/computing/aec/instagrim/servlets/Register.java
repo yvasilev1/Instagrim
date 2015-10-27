@@ -76,11 +76,18 @@ public class Register extends HttpServlet {
         
         if (us.isValidLogin(RegUserName)){
             String errorMessage2 = "User exist , please try again";
+
             request.setAttribute("errorMessage2", errorMessage2);
             request.getRequestDispatcher("/register.jsp").forward(request, response);
             response.sendRedirect("/Instagrim/register.jsp");
             
-        }else if (password1.equals(password) & emailCheck == true ) {
+        }else if(us.isValidEmailReg(email)== false){
+                String errorMessage3 = "Email exist , please try again";
+                request.setAttribute("errorMessage3", errorMessage3);
+                 request.getRequestDispatcher("/register.jsp").forward(request, response);
+            response.sendRedirect("/Instagrim/register.jsp");
+        }
+        else if (password1.equals(password) & emailCheck == true ) {
 
             us.setCluster(cluster);
             us.RegisterUser(userId, RegUserName, password, first_name, last_name, email,location);

@@ -71,7 +71,7 @@ public class Comments extends HttpServlet {
       
       
       
-     response.sendRedirect("/Instagrim/Images/");
+     response.sendRedirect("/Instagrim");
     }
 
     /**
