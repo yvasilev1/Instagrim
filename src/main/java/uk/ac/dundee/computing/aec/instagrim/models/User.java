@@ -98,8 +98,8 @@ public class User {
                 boundStatement.bind( // here you are binding the 'boundStatement'
                         ));
         if (rs.isExhausted()) {
-            System.out.println("No Images returned");
-            return false;
+            System.out.println("No emails returned");
+          
         } else {
             for (Row row : rs) {
                 String storedEmail = row.getString("email");
