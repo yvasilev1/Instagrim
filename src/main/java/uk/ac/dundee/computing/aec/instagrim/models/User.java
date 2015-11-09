@@ -210,7 +210,7 @@ public class User {
         return true;
     }
 
-    public boolean getProfileInfo(Profile profile, User user, String logUsername) {
+    public boolean getProfileInfo(Profile profile, String logUsername) {
 
         Session session = cluster.connect("yvinstagrim");
         PreparedStatement ps = session.prepare("select * from userprofiles where login=?");
