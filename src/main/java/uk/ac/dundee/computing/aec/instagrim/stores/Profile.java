@@ -20,7 +20,6 @@ public class Profile {
     String Email = null;
     String Location = null;
 
-
     public void setFirstName(String firstName) {
         this.FirstName = firstName;
     }
@@ -40,14 +39,17 @@ public class Profile {
     public void setEmail(String email) {
         this.Email = email;
     }
-     public String getEmail() {
+
+    public String getEmail() {
         return Email;
 
     }
-     public void setLocation(String location){
-         this.Location = location;
-     }
-     public String getLocation(){
-         return Location;
-     }
+
+    public void setLocation(String location) {
+        this.Location = location;
+    }
+
+    public String getLocation() {
+        return Location;
+    }
 }

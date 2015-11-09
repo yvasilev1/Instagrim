@@ -38,7 +38,7 @@ public class Upload extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Upload</title>");            
+            out.println("<title>Servlet Upload</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Upload at " + request.getContextPath() + "</h1>");
@@ -60,8 +60,8 @@ public class Upload extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher rd = request.getRequestDispatcher("upload.jsp");
-       rd.forward(request, response);
-        
+        rd.forward(request, response);
+
     }
 
     /**

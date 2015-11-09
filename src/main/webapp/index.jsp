@@ -40,17 +40,17 @@
 
             <nav>
                 <%
-                          LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                        PicModel pm = new PicModel();
-                        
-                        Cluster cluster;
-                                                Cluster cluster2;
-                        User us = new User();
-                        cluster = CassandraHosts.getCluster();
-                        cluster2 = CassandraHosts.getCluster();
-                        us.setCluster(cluster);
-                        pm.setCluster(cluster2);
-                  
+                    LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                    PicModel pm = new PicModel();
+
+                    Cluster cluster;
+                    Cluster cluster2;
+                    User us = new User();
+                    cluster = CassandraHosts.getCluster();
+                    cluster2 = CassandraHosts.getCluster();
+                    us.setCluster(cluster);
+                    pm.setCluster(cluster2);
+
                     if (lg != null) {
                         String UserName = lg.getUsername();
                         if (lg.getlogedin()) {

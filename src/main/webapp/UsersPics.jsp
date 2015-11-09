@@ -29,8 +29,6 @@
 
                     User us = new User();
 
-             
-
                     PicModel pm = new PicModel();
                     Cluster cluster;
 
@@ -79,8 +77,8 @@
 
                                 <input type="submit" value="Comment">
                             </form>
-                         
-                    
+
+
                             <a>Comments:</a></br>
 
                             <%if (comments != null) {

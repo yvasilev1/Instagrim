@@ -86,12 +86,11 @@ public class PicModel {
             session.execute(bsInsertPic.bind(picid, buffer, thumbbuf, processedbuf, user, DateAdded, length, thumblength, processedlength, type, name));
             session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
             session.close();
-          
 
         } catch (IOException ex) {
             System.out.println("Error --> " + ex);
         }
-          return true;
+        return true;
     }
 
     public byte[] picresize(String picid, String type) {
@@ -143,26 +142,25 @@ public class PicModel {
         java.util.LinkedList<Pic> Pics = new java.util.LinkedList<>();
         Session session = cluster.connect("yvinstagrim");
         PreparedStatement ps;
-        if ("majed".equals(User)){
-        ps = session.prepare("select picid,user from userpiclist");
-        }else {
-         ps = session.prepare("select picid,user from userpiclist where user =?");
+        if ("majed".equals(User)) {
+            ps = session.prepare("select picid,user from userpiclist");
+        } else {
+            ps = session.prepare("select picid,user from userpiclist where user =?");
             //ps = session.prepare("select picid,name from userpiclist");
         }
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
-                if ("majed".equals(User)){
+        if ("majed".equals(User)) {
 
-        rs = session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                        ));
-                }
-                else{
-                    rs = session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                        User));
-                    
-                }
+            rs = session.execute( // this is where the query is executed
+                    boundStatement.bind( // here you are binding the 'boundStatement'
+                    ));
+        } else {
+            rs = session.execute( // this is where the query is executed
+                    boundStatement.bind( // here you are binding the 'boundStatement'
+                            User));
+
+        }
         if (rs.isExhausted()) {
             System.out.println("No Images returned");
             return null;
@@ -204,21 +202,23 @@ public class PicModel {
         }
         return Pics;
     }
-    public void addComment(String user, String body, String picid){
+
+    public void addComment(String user, String body, String picid) {
         Convertors convertor = new Convertors();
-        
+
         java.util.UUID commentID;
         commentID = convertor.getTimeUUID();
         Session session = cluster.connect("yvinstagrim");
-        
+
         PreparedStatement insertComment = session.prepare("insert into comments ( commentID, body ,picid, user) values(?,?,?,?)");
         BoundStatement bsinserComment = new BoundStatement(insertComment);
-        session.execute(bsinserComment.bind(commentID,picid,body,user));
+        session.execute(bsinserComment.bind(commentID, picid, body, user));
     }
-    public java.util.LinkedList<String> getComments(String picid){
+
+    public java.util.LinkedList<String> getComments(String picid) {
         java.util.LinkedList<String> comments = new java.util.LinkedList<>();
         Session session = cluster.connect("yvinstagrim");
-         PreparedStatement ps = session.prepare("select body from comments where picid=? ALLOW FILTERING");
+        PreparedStatement ps = session.prepare("select body from comments where picid=? ALLOW FILTERING");
         BoundStatement boundStatement = new BoundStatement(ps);
         ResultSet rs = null;
         rs = session.execute( // this is where the query is executed
@@ -229,16 +229,16 @@ public class PicModel {
             return null;
         } else {
             for (Row row : rs) {
-                
+
                 comments.add(row.getString("body"));
-                
 
             }
         }
-        
+
         return comments;
     }
-    public java.util.LinkedList<String> getUsers(String picid){
+
+    public java.util.LinkedList<String> getUsers(String picid) {
         java.util.LinkedList<String> users = new java.util.LinkedList<>();
         Session session = cluster.connect("yvinstagrim");
         PreparedStatement ps = session.prepare("select user from comments where picid=? ALLOW FILTERING");
@@ -252,16 +252,16 @@ public class PicModel {
             return null;
         } else {
             for (Row row : rs) {
-                
+
                 users.add(row.getString("user"));
-                
 
             }
         }
-        
+
         return users;
     }
-     public Date getDate(java.util.UUID picid){
+
+    public Date getDate(java.util.UUID picid) {
         Date timeAdded = new Date();
         Session session = cluster.connect("yvinstagrim");
         PreparedStatement ps = session.prepare("select interaction_time from pics where picid=?");
@@ -275,15 +275,13 @@ public class PicModel {
             return null;
         } else {
             for (Row row : rs) {
-                timeAdded=row.getDate("interaction_time");
+                timeAdded = row.getDate("interaction_time");
 
             }
         }
 
         return timeAdded;
     }
-    
-   
 
     public void updateProfilePic(String picid, String currUserName) {
 

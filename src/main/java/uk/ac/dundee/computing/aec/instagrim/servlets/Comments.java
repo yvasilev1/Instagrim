@@ -24,10 +24,12 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
  */
 @WebServlet(name = "Comments", urlPatterns = {"/Comments"})
 public class Comments extends HttpServlet {
+
     Cluster cluster = null;
+
     public void init(ServletConfig config) throws ServletException {
-		cluster = CassandraHosts.getCluster();
-	}
+        cluster = CassandraHosts.getCluster();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,7 +48,7 @@ public class Comments extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Comments</title>");            
+            out.println("<title>Servlet Comments</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Comments at " + request.getContextPath() + "</h1>");
@@ -55,23 +57,19 @@ public class Comments extends HttpServlet {
         }
     }
 
-   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      PicModel pm = new PicModel();
-      Pic p = new Pic();
-      pm.setCluster(cluster);
-      
-      String userName = request.getParameter("user");
-      String picID = request.getParameter("picid");
-      String comment = request.getParameter("comment");
-      pm.addComment(userName, picID, comment);
-      
-      
-      
-      
-     response.sendRedirect("/Instagrim");
+        PicModel pm = new PicModel();
+        Pic p = new Pic();
+        pm.setCluster(cluster);
+
+        String userName = request.getParameter("user");
+        String picID = request.getParameter("picid");
+        String comment = request.getParameter("comment");
+        pm.addComment(userName, picID, comment);
+
+        response.sendRedirect("/Instagrim");
     }
 
     /**

@@ -38,13 +38,13 @@ public class Register extends HttpServlet {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
-    
-     protected void doGet(HttpServletRequest request, HttpServletResponse response)
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-       RequestDispatcher rd = request.getRequestDispatcher("success.jsp");
-       rd.forward(request, response);
-     }
+        RequestDispatcher rd = request.getRequestDispatcher("success.jsp");
+        rd.forward(request, response);
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -68,29 +68,26 @@ public class Register extends HttpServlet {
         Convertors convertor = new Convertors();
         java.util.UUID userId = convertor.getTimeUUID();
 
-        
         User us = new User();
         boolean emailCheck = us.isValidEmail(email);
         us.setCluster(cluster);
-       
-        
-        if (us.isValidLogin(RegUserName)){
+
+        if (us.isValidLogin(RegUserName)) {
             String errorMessage2 = "User exist , please try again";
 
             request.setAttribute("errorMessage2", errorMessage2);
             request.getRequestDispatcher("/register.jsp").forward(request, response);
             response.sendRedirect("/Instagrim/register.jsp");
-            
-        }else if(us.isValidEmailReg(email)== false){
-                String errorMessage3 = "Email exist , please try again";
-                request.setAttribute("errorMessage3", errorMessage3);
-                 request.getRequestDispatcher("/register.jsp").forward(request, response);
+
+        } else if (us.isValidEmailReg(email) == false) {
+            String errorMessage3 = "Email exist , please try again";
+            request.setAttribute("errorMessage3", errorMessage3);
+            request.getRequestDispatcher("/register.jsp").forward(request, response);
             response.sendRedirect("/Instagrim/register.jsp");
-        }
-        else if (password1.equals(password) & emailCheck == true ) {
+        } else if (password1.equals(password) & emailCheck == true) {
 
             us.setCluster(cluster);
-            us.RegisterUser(userId, RegUserName, password, first_name, last_name, email,location);
+            us.RegisterUser(userId, RegUserName, password, first_name, last_name, email, location);
             response.sendRedirect("/Instagrim/success.jsp");
 
         } else if (!password1.equals(password) & emailCheck == true) {
@@ -115,7 +112,6 @@ public class Register extends HttpServlet {
         }
 
     }
-    
 
     /**
      * Returns a short description of the servlet.

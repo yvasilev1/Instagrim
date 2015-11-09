@@ -53,7 +53,7 @@ public final class Keyspaces {
                     + "      PRIMARY KEY(userId),\n"
                     + "  );";
             String CreateSecondaryIndex = "CREATE INDEX user_index ON yvinstagrim.userprofiles (login);";
-           
+
             String createComments = "CREATE TABLE if not exists yvinstagrim.comments(\n"
                     + "     commentID UUID,\n"
                     + "     body text,\n"

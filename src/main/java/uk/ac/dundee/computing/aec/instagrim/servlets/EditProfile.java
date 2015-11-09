@@ -63,14 +63,14 @@ public class EditProfile extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-       RequestDispatcher rd = request.getRequestDispatcher("EditProfile.jsp");
-       rd.forward(request, response);
+        RequestDispatcher rd = request.getRequestDispatcher("EditProfile.jsp");
+        rd.forward(request, response);
     }
 
     @SuppressWarnings("null")
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         LoggedIn lg = new LoggedIn();
         HttpSession session = request.getSession();
         lg = (LoggedIn) session.getAttribute("LoggedIn");
@@ -82,9 +82,7 @@ public class EditProfile extends HttpServlet {
         User us = new User();
         us.setCluster(cluster);
 
-       
-        
-         boolean updateInfo = us.updateProfile(currUserName, newFirstName, newLastName, newEmail,newLocation);
+        boolean updateInfo = us.updateProfile(currUserName, newFirstName, newLastName, newEmail, newLocation);
         if (updateInfo == true) {
 
             RequestDispatcher rd = request.getRequestDispatcher("updateSuccess.jsp");

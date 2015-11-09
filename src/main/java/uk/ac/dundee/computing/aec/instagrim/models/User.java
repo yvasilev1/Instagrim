@@ -88,32 +88,31 @@ public class User {
 
         return false;
     }
-     public boolean isValidEmailReg(String email) {
-       // System.out.println(username);
+
+    public boolean isValidEmailReg(String email) {
+        // System.out.println(username);
         Session session = cluster.connect("yvinstagrim");
         PreparedStatement ps = session.prepare("select * from userprofiles");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
         rs = session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        ));
+                ));
         if (rs.isExhausted()) {
             System.out.println("No emails returned");
-          
+
         } else {
             for (Row row : rs) {
                 String storedEmail = row.getString("email");
-                if (storedEmail.equals(email)){
+                if (storedEmail.equals(email)) {
                     return false;
                 }
 
-                
             }
         }
 
         return true;
     }
-    
 
     public boolean isValidEmail(String email) {
         Pattern p0 = Pattern.compile(".+@.+\\.[a-z]+");
@@ -318,21 +317,18 @@ public class User {
                         logUserName));
         if (rs.isExhausted()) {
             System.out.println("No Images returned");
-            
+
         } else {
             for (Row row : rs) {
-                
-              
-                    usersForFollowers.add(row.getString("user1"));
+
+                usersForFollowers.add(row.getString("user1"));
 
             }
-            
 
         }
         return usersForFollowers;
-        
+
     }
-     
 
     public void setCluster(Cluster cluster) {
         this.cluster = cluster;

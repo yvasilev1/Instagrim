@@ -48,11 +48,11 @@
 
                             <form method="POST"  action="EditProfile">
                                 <ul>
-                                    
+
                                     <li>First Name <input type="text" name="newFirstName" value="<%=firstName%>"></li>
                                     <li>Last Name <input type="text" name="newLastName" value="<%=lastName%>"></li>
                                     <li>Email <input type="text" name="newEmail" value="<%=email%>"></li>
-                                     <li>Location <input type="text" name="newLocation" value="<%=location%>"></li>
+                                    <li>Location <input type="text" name="newLocation" value="<%=location%>"></li>
                                 </ul>
                                 <br/>
                                 <input type="submit" value="Edit"> 

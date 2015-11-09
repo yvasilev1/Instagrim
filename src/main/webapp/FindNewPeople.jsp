@@ -79,7 +79,7 @@
 
                                 <input type="submit" value="Follow">
                             </form>
-                          
+
 
                             <%
                                 if (comments != null) {

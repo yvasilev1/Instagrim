@@ -51,12 +51,10 @@
 
                             <%                                   java.util.LinkedList<String> usersForFollowers = new java.util.LinkedList<>();
 
-                                
-                                    usersForFollowers = us.getUserForFollower(lg.getUsername());
-                              
+                                usersForFollowers = us.getUserForFollower(lg.getUsername());
+
                             %>                             
-                            <%
-                                if (usersForFollowers == null) {
+                            <%                                if (usersForFollowers == null) {
 
                             %>
                             <p>No followers found</p>

@@ -71,7 +71,7 @@ public class LogoutServlet extends HttpServlet {
 
         session.setAttribute("LoggedIn", null);
 
-           // session.invalidate();  
+        // session.invalidate();  
         out.close();
     }
 

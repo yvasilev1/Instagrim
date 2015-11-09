@@ -44,10 +44,10 @@
                     </div>
                 </div>
             </main>
-                            <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                            String UserName = lg.getUsername();
-                            %>
-                            
+            <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                String UserName = lg.getUsername();
+            %>
+
             <nav>
 
                 <div class="innertube">

@@ -43,7 +43,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
     "/FindNewPeople",
     "/FindNewPeople/",
     "/FindNewPeople/*"
-        
+
 })
 @MultipartConfig
 
@@ -64,7 +64,6 @@ public class Image extends HttpServlet {
         CommandsMap.put("Thumb", 3);
         CommandsMap.put("updateProfilePic", 4);
         CommandsMap.put("FindNewPeople", 5);
-        
 
     }
 
@@ -107,19 +106,20 @@ public class Image extends HttpServlet {
                 error("Bad Operator", response);
         }
     }
+
     private void newPP(String uuidstring, HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
         String user = "";
-    PicModel pm = new PicModel();
-    pm.setCluster(cluster);
-    HttpSession session = request.getSession();
-    LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-    user=lg.getUsername();
-    pm.updateProfilePic(uuidstring, user);
-     response.sendRedirect("/Instagrim/Images/"+user);
+        PicModel pm = new PicModel();
+        pm.setCluster(cluster);
+        HttpSession session = request.getSession();
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        user = lg.getUsername();
+        pm.updateProfilePic(uuidstring, user);
+        response.sendRedirect("/Instagrim/Images/" + user);
 
-   
     }
-     private void FindNewPeople(String User, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    private void FindNewPeople(String User, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PicModel pm = new PicModel();
         pm.setCluster(cluster);
         java.util.LinkedList<Pic> lsPics = pm.getPicsForUser(User);
@@ -127,8 +127,6 @@ public class Image extends HttpServlet {
         request.setAttribute("Pics", lsPics);
         rd.forward(request, response);
     }
-
-    
 
     private void DisplayImageList(String User, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PicModel tm = new PicModel();
@@ -139,7 +137,7 @@ public class Image extends HttpServlet {
         rd.forward(request, response);
 
     }
-   
+
     private void DisplayImage(int type, String Image, HttpServletResponse response) throws ServletException, IOException {
         PicModel tm = new PicModel();
         tm.setCluster(cluster);
@@ -167,7 +165,7 @@ public class Image extends HttpServlet {
 
             String type = part.getContentType();
             String filename = part.getSubmittedFileName();
-           
+
             InputStream is = request.getPart(part.getName()).getInputStream();
             int i = is.available();
             HttpSession session = request.getSession();
@@ -182,22 +180,19 @@ public class Image extends HttpServlet {
                 System.out.println("Length : " + b.length);
                 PicModel tm = new PicModel();
                 tm.setCluster(cluster);
-               isInserted= tm.insertPic(b, type, filename, username);
-               if(isInserted==true){
-                String uploadMessage = "Successfully uploaded image";
-                request.setAttribute("uploadMessage", uploadMessage);
-                RequestDispatcher rd = request.getRequestDispatcher("/upload.jsp");
-                rd.forward(request, response);
-               }
+                isInserted = tm.insertPic(b, type, filename, username);
+                if (isInserted == true) {
+                    String uploadMessage = "Successfully uploaded image";
+                    request.setAttribute("uploadMessage", uploadMessage);
+                    RequestDispatcher rd = request.getRequestDispatcher("/upload.jsp");
+                    rd.forward(request, response);
+                }
                 is.close();
             }
-           
+
         }
-        
-           
-         
+
     }
-    
 
     private void error(String mess, HttpServletResponse response) throws ServletException, IOException {
 
@@ -209,5 +204,4 @@ public class Image extends HttpServlet {
         return;
     }
 
-    
 }

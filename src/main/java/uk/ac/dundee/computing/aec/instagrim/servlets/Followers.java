@@ -27,7 +27,7 @@ import uk.ac.dundee.computing.aec.instagrim.models.User;
 public class Followers extends HttpServlet {
 
     Cluster cluster = null;
-    
+
     public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
@@ -45,9 +45,9 @@ public class Followers extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         RequestDispatcher rd = request.getRequestDispatcher("followers.jsp");
-         rd.forward(request, response);
-        
+        RequestDispatcher rd = request.getRequestDispatcher("followers.jsp");
+        rd.forward(request, response);
+
     }
 
     /**
@@ -61,16 +61,16 @@ public class Followers extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String user = request.getParameter("user");
         String user1 = request.getParameter("user1");
-        
+
         User us = new User();
         us.setCluster(cluster);
         us.followUser(user, user1);
         HttpSession session = request.getSession();
         response.sendRedirect("/Instagrim/FindNewPeople/majed");
-        
+
     }
 
     /**
